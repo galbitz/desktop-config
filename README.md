@@ -7,3 +7,6 @@ Run ansible
 
 ansible-palybook local.yml
 
+Info
+* https://opensource.com/article/18/3/manage-workstation-ansible
+* https://linuxize.com/post/how-to-install-xrdp-on-ubuntu-20-04/
