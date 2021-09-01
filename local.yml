@@ -8,7 +8,7 @@
   tasks:
   - name: Install packages
     apt: 
-      name: ['htop', 'tmux', 'virtualbox', 'vagrant', 'openssh-server', 'net-tools', 'git','mc', 'gitk']
+      name: ['htop', 'tmux', 'virtualbox', 'vagrant', 'openssh-server', 'net-tools', 'git','mc', 'gitk','git-gui','xrdp']
   - name: copy sudoers_gabor
     copy: src=files/sudoers_gabor dest=/etc/sudoers.d/gabor owner=root group=root mode=0440
   - name: Create .ssh dir
@@ -38,3 +38,8 @@
       scope: global
       value: 'Gabor A'
     become: false
+  - name: Add authorized keys
+    authorized_key:
+      user: gabor
+      state: present
+      key: https://github.com/galbitz.keys
