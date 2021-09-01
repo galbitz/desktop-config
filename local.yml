@@ -8,7 +8,7 @@
   tasks:
   - name: Install packages
     apt: 
-      name: ['htop', 'tmux', 'virtualbox', 'vagrant', 'openssh-server', 'net-tools', 'git','mc']
+      name: ['htop', 'tmux', 'virtualbox', 'vagrant', 'openssh-server', 'net-tools', 'git','mc', 'gitk']
   - name: copy sudoers_gabor
     copy: src=files/sudoers_gabor dest=/etc/sudoers.d/gabor owner=root group=root mode=0440
   - name: Create .ssh dir
@@ -25,4 +25,16 @@
       force: no
       owner: gabor
       group: gabor
+    become: false
+  - name: Configure git e-mail
+    git_config:
+      name: user.email
+      scope: global
+      value: 'galbitz@gmail.com'
+    become: false
+  - name: Configure git name
+    git_config:
+      name: user.name
+      scope: global
+      value: 'Gabor A'
     become: false
