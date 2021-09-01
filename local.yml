@@ -1,0 +1,28 @@
+---
+- hosts: localhost
+  become: true
+  pre_tasks:
+    - name: update repositories
+      apt: update_cache=yes
+      changed_when: False
+  tasks:
+  - name: Install packages
+    apt: 
+      name: ['htop', 'tmux', 'virtualbox', 'vagrant', 'openssh-server', 'net-tools', 'git','mc']
+  - name: copy sudoers_gabor
+    copy: src=files/sudoers_gabor dest=/etc/sudoers.d/gabor owner=root group=root mode=0440
+  - name: Create .ssh dir
+    file:
+      path: "~/.ssh"
+      state: directory
+    become: false
+  - name: generate SSH key
+    openssh_keypair:
+      path: "~/.ssh/id_rsa"
+      type: rsa
+      size: 4096
+      state: present
+      force: no
+      owner: gabor
+      group: gabor
+    become: false
