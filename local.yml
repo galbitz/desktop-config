@@ -8,7 +8,7 @@
   tasks:
   - name: Install packages
     apt: 
-      name: ['htop', 'tmux', 'virtualbox', 'vagrant', 'openssh-server', 'net-tools', 'git','mc', 'gitk','git-gui','xrdp']
+      name: ['htop', 'tmux', 'virtualbox', 'vagrant', 'openssh-server', 'net-tools', 'git','mc', 'gitk','git-gui','xrdp', 'python']
   - name: copy sudoers_gabor
     copy: src=files/sudoers_gabor dest=/etc/sudoers.d/gabor owner=root group=root mode=0440
   - name: Create .ssh dir
@@ -43,3 +43,24 @@
       user: gabor
       state: present
       key: https://github.com/galbitz.keys
+  # - name: Download DWService client
+  #   get_url:
+  #     url: https://www.dwservice.net/download/dwagent_generic.sh
+  #     dest: /tmp/
+  # - name: Install dwservice
+  #   command: sh /tmp/dwagent.sh -silent key=530-766-080
+  #   register: dwservice
+  # - debug: msg="{{ dwservice.stdout }}"
+  # - debug: msg="{{ dwservice.stderr }}"
+  # - name: Config gdm to support dwservice
+  #   lineinfile:
+  #     path: /etc/gdm3/custom.conf
+  #     regexp: '^#WaylandEnable=false'
+  #     line: 'WaylandEnable=false'
+  #   notify: restart_display
+  # handlers:
+  #   - name: restart_display manager
+  #     service:
+  #       name: display-manager.service
+  #       state: restarted
+
