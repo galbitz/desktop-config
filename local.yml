@@ -8,7 +8,7 @@
   tasks:
   - name: Install packages
     apt: 
-      name: ['htop', 'tmux', 'virtualbox', 'vagrant', 'openssh-server', 'net-tools', 'git','mc', 'gitk','git-gui','xrdp', 'python']
+      name: ['htop', 'tmux', 'virtualbox', 'vagrant', 'openssh-server', 'net-tools', 'git','mc', 'gitk','git-gui','xrdp', 'python','vim']
   - name: copy sudoers_gabor
     copy: src=files/sudoers_gabor dest=/etc/sudoers.d/gabor owner=root group=root mode=0440
   - name: Create .ssh dir
