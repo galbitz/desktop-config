@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Desktop configuration
+  hosts: localhost
   become: true
   pre_tasks:
     - name: update repositories
