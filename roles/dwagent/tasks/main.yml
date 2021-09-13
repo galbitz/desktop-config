@@ -1,0 +1,19 @@
+  - name: Download DWService client
+    get_url:
+      url: https://www.dwservice.net/download/dwagent_generic.sh
+      dest: /tmp/
+  - name: Install dwservice
+    command: sh /tmp/dwagent.sh -silent key={{ agent_number }}
+  - debug: msg="{{ dwservice.stdout }}"
+  - debug: msg="{{ dwservice.stderr }}"
+  - name: Config gdm to support dwservice
+    lineinfile:
+      path: /etc/gdm3/custom.conf
+      regexp: '^#WaylandEnable=false'
+      line: 'WaylandEnable=false'
+    notify: restart_display
+  handlers:
+    - name: restart_display manager
+      service:
+        name: display-manager.service
+        state: restarted

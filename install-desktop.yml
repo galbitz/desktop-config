@@ -1,0 +1,12 @@
+---
+- name: Configure local desktop
+  hosts: localhost
+  pre_tasks:
+    - name: Update apt repos
+      apt: 
+        update_cache: yes
+        upgrade: 'yes'
+      changed_when: False
+      become: true
+  roles:
+    - desktop-user

@@ -5,7 +5,7 @@ sudo apt-get install ansible
 
 Run ansible
 
-ansible-palybook local.yml
+ansible-palybook install-desktop.yml
 
 Info
 * https://opensource.com/article/18/3/manage-workstation-ansible

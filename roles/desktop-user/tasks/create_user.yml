@@ -1,0 +1,41 @@
+---
+- name: Create user with ssh key
+  user:
+    name: '{{ username }}'
+    state: present
+    shell: /bin/zsh
+    password: '{{ password_hash }}'
+    update_password: on_create
+    generate_ssh_key: yes
+    ssh_key_bits: 4096
+    ssh_key_file: .ssh/id_rsa
+  become: true
+- name: Add authorized keys from github
+  authorized_key:
+    user: '{{ username }}'
+    state: present
+    key: '{{ keyurl }}'
+  become: true
+- name: Configure git e-mail
+  git_config:
+    name: user.email
+    scope: global
+    value: '{{ email }}'
+  become_user: '{{ username }}'
+  become: true
+- name: Configure git name
+  git_config:
+    name: user.name
+    scope: global
+    value: '{{ fullname }}'
+  become_user: '{{ username }}'
+  become: true
+- name: 'Add sudoers rules for {{ username }}'
+  copy:
+    dest: '/etc/sudoers.d/{{ username }}'
+    content: |
+        {{ username }} ALL=(ALL) NOPASSWD: ALL
+    mode: 0440
+    owner: root
+    group: root
+  become: true
