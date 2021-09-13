@@ -1,0 +1,9 @@
+---
+- name: Install ngrok
+  snap:
+    name: ngrok
+  become: true
+
+# - name: Add ngrok auth
+#   command:
+#     cmd: ngrok authtoken fdsfs 
