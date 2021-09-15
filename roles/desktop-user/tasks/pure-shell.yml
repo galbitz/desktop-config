@@ -1,0 +1,29 @@
+---
+- name: install dependencies
+  become: "{{ ansible_distribution != 'MacOSX' }}"
+  package:
+    name:
+      - git
+      - zsh
+    state: present
+
+- name: clone pure
+  become: yes
+  become_user: '{{ username }}'
+  # https://github.com/sindresorhus/pure#manually
+  command: 'git clone -c core.autocrlf=input --depth=1 https://github.com/sindresorhus/pure.git ~{{ username }}/.zsh/pure'
+  args:
+    chdir: '~{{ username }}'
+    creates: '~{{ username }}/.zsh/pure'
+
+- name: Set pure config in .zshrc
+  become: yes
+  become_user: '{{ username }}'
+  blockinfile:
+    path: '~{{ username }}/.zshrc'
+    block: |
+      fpath+=$HOME/.zsh/pure
+      autoload -U promptinit; promptinit
+      prompt pure
+    create: yes
+
