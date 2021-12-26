@@ -16,3 +16,5 @@
       - xrdp
       - python
       - vim 
+      - nodejs
+      - npm
